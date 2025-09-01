@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 declare(strict_types=1);
 
 /**
@@ -20,8 +24,7 @@ declare(strict_types=1);
  * @param array $params
  *   Parameters passed to the mail builder (various keys depending on $key).
  */
-function author_apply_mail($key, array &$message, $params)
-{
+function author_apply_mail($key, array &$message, $params) {
   $verify_url = isset($params['verify_url']) ? (string) $params['verify_url'] : '';
   $token_plain = isset($params['token_plain']) ? (string) $params['token_plain'] : '';
   $full_name = isset($params['full_name']) ? (string) $params['full_name'] : '';

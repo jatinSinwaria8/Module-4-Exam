@@ -8,8 +8,9 @@ dependencies:
     - node
 id: guest_blogger
 label: 'Guest Blogger'
-weight: 5
+weight: -7
 is_admin: null
 permissions:
   - 'create blogs content'
+  - 'delete own blogs content'
   - 'edit own blogs content'

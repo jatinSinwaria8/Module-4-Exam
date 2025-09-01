@@ -1,0 +1,32 @@
+uuid: dfe25f3f-ba41-413e-9e94-9225fbe2c6d7
+langcode: en
+status: true
+dependencies: {  }
+id: like_button
+label: 'Like Button'
+template: thumbsup
+value_type: points
+entity_types:
+  - node.blogs
+comment_types: {  }
+options:
+  -
+    value: '1'
+    label: up
+    class: ''
+    function: ''
+voting:
+  use_deadline: 0
+  anonymous_window: -2
+  user_window: -2
+display:
+  display_label: 'Add Like'
+  label_class: ''
+  label_position: inline
+  description: ''
+  description_class: ''
+  description_position: below
+  readonly: 0
+results:
+  result_type: vote_average
+  result_position: hidden

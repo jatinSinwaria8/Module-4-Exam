@@ -8,17 +8,20 @@ dependencies:
     - comment
     - contact
     - filter
+    - rate
     - search
     - system
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
 id: anonymous
 label: 'Anonymous user'
-weight: 0
+weight: -10
 is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
+  - 'cast rate vote on node of blogs'
   - 'search content'
   - 'use text format restricted_html'
+  - 'view rate results page'

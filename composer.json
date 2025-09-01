@@ -20,8 +20,11 @@
         "drupal/core-composer-scaffold": "^10.5",
         "drupal/core-project-message": "^10.5",
         "drupal/core-recommended": "^10.5",
+        "drupal/rate": "^3.1",
         "drupal/read_more_field": "^1.2",
+        "drupal/readmore": "^2.0@alpha",
         "drupal/smtp": "^1.4",
+        "drupal/votingapi": "^3.0@beta",
         "drush/drush": "^12.5"
     },
     "conflict": {

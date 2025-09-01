@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\author_apply\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Datetime\TimeInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -15,14 +15,13 @@ use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\Core\Url\Url;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a registration form for users applying to be authors.
  */
-class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
-{
+class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface {
   use MessengerTrait;
 
   /**
@@ -63,7 +62,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
   /**
    * The time service.
    *
-   * @var \Drupal\Core\Datetime\TimeInterface
+   * @var \Drupal\Component\Datetime\TimeInterface
    */
   protected $time;
 
@@ -91,7 +90,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
     LoggerChannelFactoryInterface $logger_factory,
     AccountProxyInterface $current_user,
     TimeInterface $time,
-    ConfigFactoryInterface $config_factory
+    ConfigFactoryInterface $config_factory,
   ) {
     $this->mailManager = $mail_manager;
     $this->entityTypeManager = $entity_type_manager;
@@ -108,8 +107,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The service container.
    */
-  public static function create(ContainerInterface $container)
-  {
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('plugin.manager.mail'),
       $container->get('entity_type.manager'),
@@ -127,8 +125,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The service container.
    */
-  public function getFormId()
-  {
+  public function getFormId() {
     return 'author_apply_register_form';
   }
 
@@ -140,8 +137,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function buildForm(array $form, FormStateInterface $form_state)
-  {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $form['full_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Full name'),
@@ -191,8 +187,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     $mail = $form_state->getValue('mail');
 
     $existing = $this->entityTypeManager->getStorage('user')
@@ -217,8 +212,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function submitForm(array &$form, FormStateInterface $form_state)
-  {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $fullName = $form_state->getValue('full_name');
     $mail = $form_state->getValue('mail');
     $password = $form_state->getValue('pass');
@@ -300,8 +294,7 @@ class AuthorRegisterForm extends FormBase implements ContainerInjectionInterface
    * @return string
    *   A unique username.
    */
-  protected function generateUniqueUsername(string $fullName, string $mail): string
-  {
+  protected function generateUniqueUsername(string $fullName, string $mail): string {
     $base = strtolower(trim($fullName));
     $base = preg_replace('/[^a-z0-9]+/', '_', $base) ?: '';
     $base = trim($base, '_');

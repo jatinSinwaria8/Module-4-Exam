@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ac3b8f912ac51fc91c810ef48300653",
+    "content-hash": "773d7d2fe8475149db959aad8ee3a174",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1616,6 +1616,56 @@
             "description": "Core and its dependencies with known-compatible minor versions. Require this project INSTEAD OF drupal/core."
         },
         {
+            "name": "drupal/rate",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/rate.git",
+                "reference": "3.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/rate-3.1.0.zip",
+                "reference": "3.1.0",
+                "shasum": "03193f8173b27c34271c00de5def05a2a72cf0e4"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10",
+                "drupal/votingapi": "^3.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.1.0",
+                    "datestamp": "1703991503",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ivnish",
+                    "homepage": "https://www.drupal.org/user/3547706"
+                },
+                {
+                    "name": "jordik",
+                    "homepage": "https://www.drupal.org/user/3472907"
+                }
+            ],
+            "description": "Flexible voting options for entity types.",
+            "homepage": "https://www.drupal.org/project/rate",
+            "support": {
+                "source": "https://git.drupalcode.org/project/rate",
+                "issues": "https://www.drupal.org/project/issues/rate"
+            }
+        },
+        {
             "name": "drupal/read_more_field",
             "version": "1.2.0",
             "source": {
@@ -1661,6 +1711,59 @@
             "homepage": "https://www.drupal.org/project/read_more_field",
             "support": {
                 "source": "https://git.drupalcode.org/project/read_more_field"
+            }
+        },
+        {
+            "name": "drupal/readmore",
+            "version": "2.0.0-alpha3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/readmore.git",
+                "reference": "2.0.0-alpha3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/readmore-2.0.0-alpha3.zip",
+                "reference": "2.0.0-alpha3",
+                "shasum": "93aad4d1de311d9987813fc8ad1dd37e9e8cd227"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-alpha3",
+                    "datestamp": "1732950067",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "colan",
+                    "homepage": "https://www.drupal.org/user/58704"
+                },
+                {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
+                },
+                {
+                    "name": "paravibe",
+                    "homepage": "https://www.drupal.org/user/2277548"
+                }
+            ],
+            "description": "Add 'read more' field formatter.",
+            "homepage": "https://www.drupal.org/project/readmore",
+            "support": {
+                "source": "https://cgit.drupalcode.org/readmore",
+                "issues": "https://www.drupal.org/project/readmore"
             }
         },
         {
@@ -1737,6 +1840,78 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/smtp",
                 "issues": "https://www.drupal.org/project/issues/smtp"
+            }
+        },
+        {
+            "name": "drupal/votingapi",
+            "version": "3.0.0-beta5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/votingapi.git",
+                "reference": "8.x-3.0-beta5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/votingapi-8.x-3.0-beta5.zip",
+                "reference": "8.x-3.0-beta5",
+                "shasum": "28e072167175c6617f15f21c3bba89900f3d0545"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10"
+            },
+            "require-dev": {
+                "drupal/token": "^1.5"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-3.0-beta5",
+                    "datestamp": "1724557647",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": ">=9"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "eaton",
+                    "homepage": "https://www.drupal.org/user/16496"
+                },
+                {
+                    "name": "pedrorocha",
+                    "homepage": "https://www.drupal.org/user/218937"
+                },
+                {
+                    "name": "pifagor",
+                    "homepage": "https://www.drupal.org/user/2375692"
+                },
+                {
+                    "name": "torotil",
+                    "homepage": "https://www.drupal.org/user/865256"
+                },
+                {
+                    "name": "tr",
+                    "homepage": "https://www.drupal.org/user/202830"
+                }
+            ],
+            "description": "Voting API",
+            "homepage": "https://www.drupal.org/project/votingapi",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/votingapi",
+                "issues": "https://drupal.org/project/issues/votingapi"
             }
         },
         {
@@ -6611,7 +6786,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "drupal/readmore": 15,
+        "drupal/votingapi": 10
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],

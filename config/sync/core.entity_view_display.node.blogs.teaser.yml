@@ -28,5 +28,10 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
+  rate_like_button:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
   field_blog_content_tag: true

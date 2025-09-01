@@ -19,8 +19,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 /**
  * Controller for administration pages for author applications.
  */
-final class AdminController extends ControllerBase
-{
+final class AdminController extends ControllerBase {
 
   /**
    * The database connection.
@@ -66,7 +65,7 @@ final class AdminController extends ControllerBase
     Connection $database,
     MailManagerInterface $mail_manager,
     DateFormatterInterface $date_formatter,
-    EntityTypeManagerInterface $entity_type_manager
+    EntityTypeManagerInterface $entity_type_manager,
   ) {
     $this->database = $database;
     $this->mailManager = $mail_manager;
@@ -77,8 +76,7 @@ final class AdminController extends ControllerBase
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): AdminController
-  {
+  public static function create(ContainerInterface $container): AdminController {
     return new static(
       $container->get('database'),
       $container->get('plugin.manager.mail'),
@@ -96,8 +94,7 @@ final class AdminController extends ControllerBase
    * @return array
    *   A render array for the admin table.
    */
-  public function listApplications(): array
-  {
+  public function listApplications(): array {
     $header = [
       $this->t('UID'),
       $this->t('Name'),
@@ -167,8 +164,7 @@ final class AdminController extends ControllerBase
    * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
    *   Thrown when the current user lacks the required permission.
    */
-  public function approve(int $uid): RedirectResponse
-  {
+  public function approve(int $uid): RedirectResponse {
     if (!$this->currentUser()->hasPermission('approve author applications')) {
       throw new AccessDeniedHttpException();
     }

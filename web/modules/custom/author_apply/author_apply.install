@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 declare(strict_types=1);
 
 /**
@@ -17,8 +21,7 @@ use Drupal\user\Entity\Role;
  * @return array
  *   An associative array defining the database schema.
  */
-function author_apply_schema(): array
-{
+function author_apply_schema(): array {
   $schema['author_apply_otp'] = [
     'description' => 'Stores OTP tokens for author registration verification.',
     'fields' => [
@@ -77,8 +80,7 @@ function author_apply_schema(): array
  *
  * Creates the blogger and guest_blogger roles with default permissions.
  */
-function author_apply_install(): void
-{
+function author_apply_install(): void {
   if (!Role::load('blogger')) {
     $role = Role::create([
       'id' => 'blogger',
@@ -117,8 +119,7 @@ function author_apply_install(): void
  *
  * Removes roles created by this module and drops the custom table.
  */
-function author_apply_uninstall(): void
-{
+function author_apply_uninstall(): void {
   foreach (['blogger', 'guest_blogger'] as $rid) {
     if ($role = Role::load($rid)) {
       $role->delete();

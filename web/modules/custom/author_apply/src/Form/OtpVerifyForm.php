@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\author_apply\Form;
 
+use Drupal\user\UserInterface;
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Datetime\TimeInterface;
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -17,8 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides a form for verifying author OTP tokens.
  */
-class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
-{
+class OtpVerifyForm extends FormBase implements ContainerInjectionInterface {
   use MessengerTrait;
 
   /**
@@ -38,7 +38,7 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
   /**
    * The time service.
    *
-   * @var \Drupal\Core\Datetime\TimeInterface
+   * @var \Drupal\Component\Datetime\TimeInterface
    */
   protected $time;
 
@@ -53,7 +53,7 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
     Connection $database,
     EntityTypeManagerInterface $entityTypeManager,
     TimeInterface $time,
-    RouteMatchInterface $routeMatch
+    RouteMatchInterface $routeMatch,
   ) {
     $this->database = $database;
     $this->entityTypeManager = $entityTypeManager;
@@ -61,15 +61,13 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
     $this->routeMatch = $routeMatch;
   }
 
-
   /**
    * {@inheritdoc}
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The service container.
    */
-  public static function create(ContainerInterface $container)
-  {
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('database'),
       $container->get('entity_type.manager'),
@@ -84,11 +82,9 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
    * @return string
    *   The form ID.
    */
-  public function getFormId()
-  {
+  public function getFormId() {
     return 'author_apply_verify_form';
   }
-
 
   /**
    * {@inheritdoc}
@@ -98,10 +94,9 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function buildForm(array $form, FormStateInterface $form_state)
-  {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $uid = $this->routeMatch->getParameter('uid');
-    if ($uid instanceof \Drupal\user\UserInterface) {
+    if ($uid instanceof UserInterface) {
       $uid = $uid->id();
     }
 
@@ -138,8 +133,7 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
   }
 
   /**
@@ -150,8 +144,7 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function submitForm(array &$form, FormStateInterface $form_state)
-  {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $uid = (int) $form_state->getValue('uid');
     $tokenPlain = $form_state->getValue('token');
     $tokenHash = hash('sha256', (string) $tokenPlain);
@@ -187,4 +180,5 @@ class OtpVerifyForm extends FormBase implements ContainerInjectionInterface
     $this->messenger()->addStatus($this->t('Your email has been verified. An admin will review your application.'));
     $form_state->setRedirect('<front>');
   }
+
 }
