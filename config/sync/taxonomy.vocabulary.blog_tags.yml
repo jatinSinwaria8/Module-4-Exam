@@ -1,0 +1,9 @@
+uuid: a25cc6b0-3d26-450d-a098-caa95024d764
+langcode: en
+status: true
+dependencies: {  }
+name: 'Blog Tags'
+vid: blog_tags
+description: 'Tags related to blogs'
+weight: 0
+new_revision: false

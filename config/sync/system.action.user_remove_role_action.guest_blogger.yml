@@ -1,0 +1,14 @@
+uuid: 324ef9b4-9db8-493a-af2b-53d19c1e033a
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.guest_blogger
+  module:
+    - user
+id: user_remove_role_action.guest_blogger
+label: 'Remove the Guest Blogger role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: guest_blogger
