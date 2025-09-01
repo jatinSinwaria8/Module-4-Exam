@@ -1,0 +1,67 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Primary module hooks for the Author Apply module.
+ */
+
+/**
+ * Implements hook_mail().
+ *
+ * Builds email messages for author application workflows.
+ *
+ * @param string $key
+ *   The mail key identifying the message being sent.
+ * @param array $message
+ *   A message array passed by reference. The implementation should set
+ *   'subject' and 'body' (an array of lines) on this array.
+ * @param array $params
+ *   Parameters passed to the mail builder (various keys depending on $key).
+ */
+function author_apply_mail($key, array &$message, $params)
+{
+  $verify_url = isset($params['verify_url']) ? (string) $params['verify_url'] : '';
+  $token_plain = isset($params['token_plain']) ? (string) $params['token_plain'] : '';
+  $full_name = isset($params['full_name']) ? (string) $params['full_name'] : '';
+  $mail_address = isset($params['mail']) ? (string) $params['mail'] : '';
+  $author_type = isset($params['type']) ? (string) $params['type'] : '';
+
+  switch ($key) {
+    case 'otp':
+      $message['subject'] = t('Verify your email for becoming an author');
+      $message['body'][] = t("Hello,\n\nThanks for applying to be an author. Please verify your email by clicking the link below:\n\n@url\n\nIf the link doesn't work, copy-paste the token: @token\n\nThis token expires in 24 hours.\n\nThanks,", [
+        '@url' => $verify_url,
+        '@token' => $token_plain,
+      ]);
+      break;
+
+    case 'notify_admin':
+      $message['subject'] = t('New author application: @name', ['@name' => $full_name]);
+      $message['body'] = [
+        t('A new author registration has been submitted:'),
+        t('Full name: @name', ['@name' => $full_name]),
+        t('Email: @mail', ['@mail' => $mail_address]),
+        t('Author type: @type', ['@type' => $author_type]),
+        '',
+      ];
+      break;
+
+    case 'thank_you':
+      $message['subject'] = t('Thank you for your author application');
+      $message['body'] = [
+        t('Hello @name,', ['@name' => $full_name]),
+        t('Thank you for your submission. We have received your application and will get back to you shortly.'),
+      ];
+      break;
+
+    case 'approved':
+      $message['subject'] = t('Your author account has been approved');
+      $message['body'] = [
+        t('Hello @name,', ['@name' => $full_name]),
+        t('Good news — your account has been approved by an admin and you can now log in and create content.'),
+      ];
+      break;
+  }
+}

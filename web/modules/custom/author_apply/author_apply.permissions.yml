@@ -1,0 +1,4 @@
+approve author applications:
+  title: 'Approve author applications'
+  description: 'Allow users to approve author registrations from the author applications admin screen.'
+  restrict: TRUE
