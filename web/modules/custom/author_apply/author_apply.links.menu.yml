@@ -1,0 +1,5 @@
+become.author:
+  title: 'Become an Author'
+  route_name: author_apply.register
+  menu_name: main
+  weight: 100

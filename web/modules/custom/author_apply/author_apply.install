@@ -1,0 +1,130 @@
+<?php
+
+/**
+ * @file
+ */
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Author Apply module.
+ */
+
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database schema for the module.
+ *
+ * @return array
+ *   An associative array defining the database schema.
+ */
+function author_apply_schema(): array {
+  $schema['author_apply_otp'] = [
+    'description' => 'Stores OTP tokens for author registration verification.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'User ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'token_hash' => [
+        'description' => 'SHA-256 hash of the OTP token.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'expires' => [
+        'description' => 'Unix timestamp when token expires.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'verified' => [
+        'description' => 'Verification flag: 0 = not verified, 1 = verified.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'created' => [
+        'description' => 'Creation timestamp.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'uid_idx' => ['uid'],
+      'token_hash_idx' => ['token_hash'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ *
+ * Creates the blogger and guest_blogger roles with default permissions.
+ */
+function author_apply_install(): void {
+  if (!Role::load('blogger')) {
+    $role = Role::create([
+      'id' => 'blogger',
+      'label' => 'Blogger',
+    ]);
+    $role->save();
+  }
+
+  if (!Role::load('guest_blogger')) {
+    $role = Role::create([
+      'id' => 'guest_blogger',
+      'label' => 'Guest Blogger',
+    ]);
+    $role->save();
+  }
+
+  $permissions = [
+    'create blogs content',
+    'edit own blogs content',
+  ];
+
+  foreach (['blogger', 'guest_blogger'] as $rid) {
+    if ($role = Role::load($rid)) {
+      foreach ($permissions as $permission) {
+        if (!$role->hasPermission($permission)) {
+          $role->grantPermission($permission);
+        }
+      }
+      $role->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Removes roles created by this module and drops the custom table.
+ */
+function author_apply_uninstall(): void {
+  foreach (['blogger', 'guest_blogger'] as $rid) {
+    if ($role = Role::load($rid)) {
+      $role->delete();
+    }
+  }
+
+  \Drupal::database()->schema()->dropTable('author_apply_otp');
+}

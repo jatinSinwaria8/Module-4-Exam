@@ -1,0 +1,17 @@
+uuid: e0f150c5-ccef-4e42-9c17-90e17fe98ef1
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Blogs
+type: blogs
+description: 'Add blogs to the page'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,5 @@
+name: 'Delete Blogs'
+type: module
+description: 'Automatically deletes blogs using cron every 5 AM.'
+package: Custom
+core_version_requirement: ^10 || ^11

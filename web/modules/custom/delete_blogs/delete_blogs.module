@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Delete Blogs module.
+ */
+
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_cron().
+ *
+ * Deletes blogs which are older than 1 year from guest bloggers.
+ */
+function delete_blogs_cron() {
+  $now = \Drupal::time()->getRequestTime();
+  $current_hour = date('G', $now);
+
+  if ($current_hour !== '5') {
+    return;
+  }
+
+  $threshold = strtotime('-1 year', $now);
+
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'blogs')
+    ->condition('created', $threshold, '<')
+    ->range(0, 100)
+    ->accessCheck(FALSE)
+    ->execute();
+
+  if (empty($nids)) {
+    return;
+  }
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  foreach ($storage->loadMultiple($nids) as $node) {
+    $author = $node->getOwner();
+    $roles = $author->getRoles();
+
+    if (
+      in_array('guest_blogger', $roles) ||
+      array_filter($roles, fn($r) => preg_match('/guest.*blogger/i', Role::load($r)->label() ?? ''))
+    ) {
+      try {
+        $node->delete();
+      }
+      catch (\Throwable $e) {
+        \Drupal::logger('delete_blogs')->error('Failed to delete node @nid: @message', [
+          '@nid' => $node->id(),
+          '@message' => $e->getMessage(),
+        ]);
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
+langcode: en
+uuid: 8679e150-ef48-4014-9cb4-f59fa7684cc3
+name: 'Module 4 Exam'
+mail: jatinsinwaria8@gmail.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /related-blogs
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

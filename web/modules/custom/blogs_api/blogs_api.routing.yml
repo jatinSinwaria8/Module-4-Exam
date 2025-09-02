@@ -1,0 +1,9 @@
+blogs_api.list:
+  path: '/api/blogs'
+  defaults:
+    _controller: '\Drupal\blogs_api\Controller\BlogsApiController::list'
+    _title: 'Blogs JSON API'
+  requirements:
+    _permission: 'access blogs api'
+  options:
+    _format: 'json'

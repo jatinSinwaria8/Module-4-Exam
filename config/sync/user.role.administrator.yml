@@ -1,0 +1,11 @@
+uuid: ce82f4a4-0302-4540-a3a9-9338e5a3d8ea
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: OeKGIkmZA_c-t6QLH81WNQx8gDCc1MRmxaTuQgxBByU
+id: administrator
+label: Administrator
+weight: -5
+is_admin: true
+permissions: {  }

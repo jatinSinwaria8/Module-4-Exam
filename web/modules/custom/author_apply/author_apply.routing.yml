@@ -1,0 +1,38 @@
+author_apply.register:
+  path: '/become-author'
+  defaults:
+    _form: '\Drupal\author_apply\Form\AuthorRegisterForm'
+    _title: 'Become an Author'
+  requirements:
+    _access: 'TRUE'
+
+author_apply.verify:
+  path: '/author-verify/{uid}/{token}'
+  defaults:
+    _form: '\Drupal\author_apply\Form\OtpVerifyForm'
+    _title: 'Verify your email'
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      uid:
+        type: entity:user
+
+author_apply.admin_list:
+  path: '/admin/author-applications'
+  defaults:
+    _controller: '\Drupal\author_apply\Controller\AdminController::listApplications'
+    _title: 'Author Applications'
+  requirements:
+    _permission: 'approve author applications'
+
+author_apply.approve:
+  path: '/admin/author-applications/approve/{uid}'
+  defaults:
+    _controller: '\Drupal\author_apply\Controller\AdminController::approve'
+  requirements:
+    _permission: 'approve author applications'
+  options:
+    parameters:
+      uid:
+        type: entity:user

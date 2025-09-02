@@ -1,0 +1,14 @@
+uuid: 043467d3-0fd6-4b0d-8f4e-f25b529ce648
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.guest_blogger
+  module:
+    - user
+id: user_add_role_action.guest_blogger
+label: 'Add the Guest Blogger role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: guest_blogger

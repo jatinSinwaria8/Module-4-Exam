@@ -1,0 +1,5 @@
+name: 'blogs api'
+type: module
+description: 'generate blogs api.'
+package: Custom
+core_version_requirement: ^10 || ^11
